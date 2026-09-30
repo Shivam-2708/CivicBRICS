@@ -50,66 +50,49 @@ This can lead to:
 
 ## 💡 How It Works
 
-```text
-Citizen
-   ↓
-Web Portal
-   ↓
-Express.js API
-   ↓
-MySQL Database
-   ↓
-Google Gemini AI
-   ↓
-Categorization + Urgency Assessment
-   ↓
-Policymaker Dashboard
-   ↓
-Issue Resolution
----
+### ⚙️ Architecture Workflow
 
-## ✨ Key Features
+<div align="center">
 
-| Feature | Description |
-|---|---|
-| 🗣️ Multilingual Reporting | Submit infrastructure problems in regional/native languages |
-| 🤖 AI Processing | Google Gemini processes and structures reports |
-| 🚨 Urgency Assessment | Helps identify high-priority infrastructure issues |
-| 🏷️ Issue Categorization | Organizes reports into infrastructure categories |
-| 🔐 Authentication | Separate citizen and government access |
-| 🏛️ Policymaker Dashboard | Centralized interface for reviewing reports |
-| 📊 Structured Data | Converts citizen complaints into actionable information |
-| 🌍 Scalable Architecture | Designed with multi-nation deployment in mind |
+| Step | Layer | Description |
+| :---: | :--- | :--- |
+| **01** | 🗣️ **Citizen Ingestion** | Multilingual submission via Web Portal (regional/native language support) |
+| **02** | ⚙️ **Core Backend** | Express.js API handles validation and stores raw reports in MySQL |
+| **03** | 🤖 **AI Pipeline** | Google Gemini standardizes, categorizes, and calculates urgency scores |
+| **04** | 🏛️ **Governance View** | Actionable insights populated directly on the Policymaker Dashboard |
 
----
+</div>
 
-## 🖥️ Platform Screenshots
+<br>
 
-### 👤 Citizen Portal
+### 🔄 System Data Pipeline
 
-![Citizen Portal](screenshots/citizen-portal.jpg.png)
+```mermaid
+graph TD
+    subgraph Client_Layer["🗣️ Citizen Interface"]
+        A[Citizen Submission] --> B[Web Portal]
+    end
 
-### 📝 Report Submission
+    subgraph Backend_Layer["⚙️ Core API & Storage"]
+        B --> C[Express.js API Router]
+        C --> D[(MySQL Database)]
+    end
 
-![Report Submission](screenshots/report-submission.jpg.png)
+    subgraph AI_Layer["🤖 Gemini Intelligence Engine"]
+        D --> E[Google Gemini AI]
+        E --> F[NLP Standardizer]
+        F --> G[Urgency Assessment]
+    end
 
-### 🏛️ Policymaker Dashboard
+    subgraph Policy_Layer["🏛️ Action & Resolution"]
+        G --> H[Policymaker Dashboard]
+        H --> I[Targeted Infrastructure Action]
+    end
 
-![Policymaker Dashboard](screenshots/dashboard.jpg.png)
+    style Client_Layer fill:#f8f9fa,stroke:#d1d5db,stroke-width:1px
+    style Backend_Layer fill:#f8f9fa,stroke:#d1d5db,stroke-width:1px
+    style AI_Layer fill:#eff6ff,stroke:#3b82f6,stroke-width:1.5px
+    style Policy_Layer fill:#f0fdf4,stroke:#22c55e,stroke-width:1.5px
 
----
-
-## 🤖 AI Pipeline
-
-CivicBRICS uses **Google Gemini** to process citizen reports.
-
-```text
-Citizen Report
-      ↓
-Language Processing
-      ↓
-Issue Categorization
-      ↓
-Urgency Assessment
-      ↓
-Structured Civic Report
+    style E fill:#2563eb,color:#fff,stroke-width:0px
+    style H fill:#16a34a,color:#fff,stroke-width:0px
